@@ -1,4 +1,4 @@
-أكيد، هذا **ملف `
+
 # 💰 Mahfazti — محفظتي
 
 **Mahfazti (محفظتي)** is a full-stack personal finance management system designed to help users manage their income, expenses, budgets, categories, notifications, and financial reports through a modern mobile application connected to a secure REST API backend.
