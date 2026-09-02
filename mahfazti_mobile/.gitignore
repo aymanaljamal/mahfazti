@@ -1,0 +1,73 @@
+# Flutter / Dart
+
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.flutter-plugins-dependencies
+
+# IDE
+
+.idea/
+.vscode/
+*.iml
+
+# Android
+
+android/.gradle/
+android/local.properties
+android/**/GeneratedPluginRegistrant.java
+
+# iOS
+
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+
+# macOS
+
+macos/Pods/
+macos/Flutter/ephemeral/
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Windows
+
+windows/flutter/ephemeral/
+
+# Linux
+
+linux/flutter/ephemeral/
+
+# Web
+
+web/.dart_tool/
+
+# Generated files
+
+*.g.dart
+*.freezed.dart
+
+# Environment / Secrets
+
+.env
+.env.*
+!.env.example
+
+# Logs
+
+*.log
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Firebase
+
+google-services.json
+GoogleService-Info.plist
