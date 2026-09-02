@@ -1047,12 +1047,3 @@ A formal open-source license can be added in the future.
 **محفظتي — إدارة أموالك أصبحت أسهل.**
 
 ````
-
-ولرفع هذا الـ README بعد حفظه:
-
-```powershell
-git add README.md
-git commit -m "docs: update project README and screenshots"
-git push origin main
-````
-
