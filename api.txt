@@ -1,0 +1,1153 @@
+/v3/api-docs
+Servers
+
+http://localhost:8080 - Generated server url
+user-controller
+
+
+GET
+/api/users/me
+
+Parameters
+Try it out
+No parameters
+
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "phone": "string",
+  "profileImageUrl": "string",
+  "role": "string"
+}
+No links
+
+PUT
+/api/users/me
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "firstName": "string",
+  "lastName": "string",
+  "phone": "string",
+  "profileImageUrl": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "phone": "string",
+  "profileImageUrl": "string",
+  "role": "string"
+}
+No links
+notification-controller
+
+
+PUT
+/api/notifications/{id}/read
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "type": "BUDGET_WARNING",
+  "title": "string",
+  "message": "string",
+  "createdAt": "2026-09-02T11:36:27.110Z",
+  "read": true
+}
+No links
+
+PUT
+/api/notifications/read-all
+
+Parameters
+Try it out
+No parameters
+
+Responses
+Code	Description	Links
+200	
+OK
+
+No links
+
+GET
+/api/notifications
+
+Parameters
+Try it out
+No parameters
+
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+[
+  {
+    "id": 0,
+    "type": "BUDGET_WARNING",
+    "title": "string",
+    "message": "string",
+    "createdAt": "2026-09-02T11:36:27.111Z",
+    "read": true
+  }
+]
+No links
+
+GET
+/api/notifications/unread
+
+Parameters
+Try it out
+No parameters
+
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+[
+  {
+    "id": 0,
+    "type": "BUDGET_WARNING",
+    "title": "string",
+    "message": "string",
+    "createdAt": "2026-09-02T11:36:27.111Z",
+    "read": true
+  }
+]
+No links
+
+GET
+/api/notifications/unread-count
+
+Parameters
+Try it out
+No parameters
+
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "additionalProp1": 0,
+  "additionalProp2": 0,
+  "additionalProp3": 0
+}
+No links
+
+DELETE
+/api/notifications/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+No links
+income-controller
+
+
+GET
+/api/incomes/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "amount": 0,
+    "source": "SALARY",
+    "date": "2026-09-02",
+    "description": "string",
+    "createdAt": "2026-09-02T11:36:27.113Z",
+    "updatedAt": "2026-09-02T11:36:27.113Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.113Z"
+}
+No links
+
+PUT
+/api/incomes/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "source": "SALARY",
+  "date": "2026-09-02",
+  "description": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "amount": 0,
+    "source": "SALARY",
+    "date": "2026-09-02",
+    "description": "string",
+    "createdAt": "2026-09-02T11:36:27.114Z",
+    "updatedAt": "2026-09-02T11:36:27.114Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.114Z"
+}
+No links
+
+DELETE
+/api/incomes/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": "string",
+  "timestamp": "2026-09-02T11:36:27.115Z"
+}
+No links
+
+GET
+/api/incomes
+
+Parameters
+Try it out
+Name	Description
+startDate
+string($date)
+(query)
+startDate
+endDate
+string($date)
+(query)
+endDate
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": [
+    {
+      "id": 0,
+      "amount": 0,
+      "source": "SALARY",
+      "date": "2026-09-02",
+      "description": "string",
+      "createdAt": "2026-09-02T11:36:27.116Z",
+      "updatedAt": "2026-09-02T11:36:27.116Z"
+    }
+  ],
+  "timestamp": "2026-09-02T11:36:27.116Z"
+}
+No links
+
+POST
+/api/incomes
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "source": "SALARY",
+  "date": "2026-09-02",
+  "description": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "amount": 0,
+    "source": "SALARY",
+    "date": "2026-09-02",
+    "description": "string",
+    "createdAt": "2026-09-02T11:36:27.117Z",
+    "updatedAt": "2026-09-02T11:36:27.117Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.117Z"
+}
+No links
+expense-controller
+
+
+GET
+/api/expenses/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "amount": 0,
+  "categoryId": 0,
+  "categoryName": "string",
+  "categoryIcon": "string",
+  "date": "2026-09-02",
+  "time": "string",
+  "paymentMethod": "CASH",
+  "description": "string",
+  "createdAt": "2026-09-02T11:36:27.118Z",
+  "updatedAt": "2026-09-02T11:36:27.118Z"
+}
+No links
+
+PUT
+/api/expenses/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "categoryId": 0,
+  "date": "2026-09-02",
+  "time": "string",
+  "paymentMethod": "CASH",
+  "description": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "amount": 0,
+  "categoryId": 0,
+  "categoryName": "string",
+  "categoryIcon": "string",
+  "date": "2026-09-02",
+  "time": "string",
+  "paymentMethod": "CASH",
+  "description": "string",
+  "createdAt": "2026-09-02T11:36:27.119Z",
+  "updatedAt": "2026-09-02T11:36:27.119Z"
+}
+No links
+
+DELETE
+/api/expenses/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+No links
+
+GET
+/api/expenses
+
+Parameters
+Try it out
+Name	Description
+startDate
+string($date)
+(query)
+startDate
+endDate
+string($date)
+(query)
+endDate
+categoryId
+integer($int64)
+(query)
+categoryId
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+[
+  {
+    "id": 0,
+    "amount": 0,
+    "categoryId": 0,
+    "categoryName": "string",
+    "categoryIcon": "string",
+    "date": "2026-09-02",
+    "time": "string",
+    "paymentMethod": "CASH",
+    "description": "string",
+    "createdAt": "2026-09-02T11:36:27.121Z",
+    "updatedAt": "2026-09-02T11:36:27.121Z"
+  }
+]
+No links
+
+POST
+/api/expenses
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "categoryId": 0,
+  "date": "2026-09-02",
+  "time": "string",
+  "paymentMethod": "CASH",
+  "description": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "id": 0,
+  "amount": 0,
+  "categoryId": 0,
+  "categoryName": "string",
+  "categoryIcon": "string",
+  "date": "2026-09-02",
+  "time": "string",
+  "paymentMethod": "CASH",
+  "description": "string",
+  "createdAt": "2026-09-02T11:36:27.122Z",
+  "updatedAt": "2026-09-02T11:36:27.122Z"
+}
+No links
+
+GET
+/api/expenses/summary
+
+Parameters
+Try it out
+Name	Description
+startDate *
+string($date)
+(query)
+startDate
+endDate *
+string($date)
+(query)
+endDate
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "additionalProp1": 0,
+  "additionalProp2": 0,
+  "additionalProp3": 0
+}
+No links
+budget-controller
+
+
+GET
+/api/budgets/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "categoryId": 0,
+    "categoryName": "string",
+    "categoryIcon": "string",
+    "amount": 0,
+    "year": 0,
+    "month": 0,
+    "createdAt": "2026-09-02T11:36:27.123Z",
+    "updatedAt": "2026-09-02T11:36:27.123Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.123Z"
+}
+No links
+
+PUT
+/api/budgets/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "categoryId": 0,
+  "year": 2000,
+  "month": 1
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "categoryId": 0,
+    "categoryName": "string",
+    "categoryIcon": "string",
+    "amount": 0,
+    "year": 0,
+    "month": 0,
+    "createdAt": "2026-09-02T11:36:27.125Z",
+    "updatedAt": "2026-09-02T11:36:27.125Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.125Z"
+}
+No links
+
+DELETE
+/api/budgets/{id}
+
+Parameters
+Try it out
+Name	Description
+id *
+integer($int64)
+(path)
+id
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": "string",
+  "timestamp": "2026-09-02T11:36:27.126Z"
+}
+No links
+
+GET
+/api/budgets
+
+Parameters
+Try it out
+Name	Description
+year
+integer($int32)
+(query)
+year
+month
+integer($int32)
+(query)
+month
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": [
+    {
+      "id": 0,
+      "categoryId": 0,
+      "categoryName": "string",
+      "categoryIcon": "string",
+      "amount": 0,
+      "year": 0,
+      "month": 0,
+      "createdAt": "2026-09-02T11:36:27.126Z",
+      "updatedAt": "2026-09-02T11:36:27.126Z"
+    }
+  ],
+  "timestamp": "2026-09-02T11:36:27.126Z"
+}
+No links
+
+POST
+/api/budgets
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "amount": 0.01,
+  "categoryId": 0,
+  "year": 2000,
+  "month": 1
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "success": true,
+  "message": "string",
+  "data": {
+    "id": 0,
+    "categoryId": 0,
+    "categoryName": "string",
+    "categoryIcon": "string",
+    "amount": 0,
+    "year": 0,
+    "month": 0,
+    "createdAt": "2026-09-02T11:36:27.128Z",
+    "updatedAt": "2026-09-02T11:36:27.128Z"
+  },
+  "timestamp": "2026-09-02T11:36:27.128Z"
+}
+No links
+auth-controller
+
+
+POST
+/api/auth/register
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "user@example.com",
+  "password": "stringst",
+  "phone": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "accessToken": "string",
+  "tokenType": "string",
+  "userId": 0,
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "role": "string",
+  "profileImageUrl": "string"
+}
+No links
+
+POST
+/api/auth/login
+
+Parameters
+Try it out
+No parameters
+
+Request body
+
+application/json
+Example Value
+Schema
+{
+  "email": "user@example.com",
+  "password": "string"
+}
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "accessToken": "string",
+  "tokenType": "string",
+  "userId": 0,
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "role": "string",
+  "profileImageUrl": "string"
+}
+No links
+report-controller
+
+
+GET
+/api/reports/yearly
+
+Parameters
+Try it out
+Name	Description
+year
+integer($int32)
+(query)
+year
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "year": 0,
+  "totalIncome": 0,
+  "totalExpenses": 0,
+  "monthlyBreakdown": [
+    {
+      "month": 0,
+      "monthName": "string",
+      "totalExpenses": 0,
+      "totalIncome": 0
+    }
+  ]
+}
+No links
+
+GET
+/api/reports/weekly
+
+Parameters
+Try it out
+Name	Description
+date
+string($date)
+(query)
+date
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "weekStart": "2026-09-02",
+  "weekEnd": "2026-09-02",
+  "totalExpenses": 0,
+  "averageDailySpending": 0,
+  "highestSpendingDay": {
+    "date": "2026-09-02",
+    "amount": 0
+  },
+  "mostExpensiveCategory": "string",
+  "previousWeekTotal": 0,
+  "percentChangeFromPreviousWeek": 0.1
+}
+No links
+
+GET
+/api/reports/monthly
+
+Parameters
+Try it out
+Name	Description
+year
+integer($int32)
+(query)
+year
+month
+integer($int32)
+(query)
+month
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "year": 0,
+  "month": 0,
+  "totalIncome": 0,
+  "totalExpenses": 0,
+  "remainingBalance": 0,
+  "averageDailySpending": 0,
+  "categoryBreakdown": [
+    {
+      "categoryId": 0,
+      "categoryName": "string",
+      "categoryIcon": "string",
+      "totalAmount": 0,
+      "percentage": 0.1
+    }
+  ],
+  "previousMonthTotalExpenses": 0,
+  "percentChangeFromPreviousMonth": 0.1,
+  "overallBudgetUsagePercent": 0.1
+}
+No links
+
+GET
+/api/reports/daily
+
+Parameters
+Try it out
+Name	Description
+date
+string($date)
+(query)
+date
+Responses
+Code	Description	Links
+200	
+OK
+
+Media type
+
+*/*
+Controls Accept header.
+Example Value
+Schema
+{
+  "date": "2026-09-02",
+  "totalExpenses": 0,
+  "totalIncome": 0,
+  "transactionCount": 0,
+  "highestExpense": {
+    "expenseId": 0,
+    "amount": 0,
+    "categoryName": "string",
+    "description": "string"
+  },
+  "categoryBreakdown": [
+    {
+      "categoryId": 0,
+      "categoryName": "string",
+      "categoryIcon": "string",
+      "totalAmount": 0,
+      "percentage": 0.1
+    }
+  ]
+}
+No links
+category-controller
+
+
+GET
+/api/categories
+
+
+Schemas
+UpdateUserRequestExpand allobject
+UserResponseExpand allobject
+NotificationResponseExpand allobject
+UpdateIncomeRequestExpand allobject
+ApiResponseIncomeResponseExpand allobject
+IncomeResponseExpand allobject
+UpdateExpenseRequestExpand allobject
+ExpenseResponseExpand allobject
+UpdateBudgetRequestExpand allobject
+ApiResponseBudgetResponseExpand allobject
+BudgetResponseExpand allobject
+CreateIncomeRequestExpand allobject
+CreateExpenseRequestExpand allobject
+CreateBudgetRequestExpand allobject
+RegisterRequestExpand allobject
+AuthResponseExpand allobject
+LoginRequestExpand allobject
+MonthSpendingExpand allobject
+YearlyReportResponseExpand allobject
+DaySpendingExpand allobject
+WeeklyReportResponseExpand allobject
+CategoryBreakdownItemExpand allobject
+MonthlyReportResponseExpand allobject
+DailyReportResponseExpand allobject
+ExpenseHighlightExpand allobject
+ApiResponseListIncomeResponseExpand allobject
+CategoryResponseExpand allobject
+ApiResponseListBudgetResponseExpand allobject
+ApiResponseVoidExpand allobject

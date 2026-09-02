@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/screens/auth/login_screen.dart';
@@ -18,18 +19,15 @@ import '../presentation/screens/budgets/add_budget_screen.dart';
 import '../presentation/screens/budgets/edit_budget_screen.dart';
 
 import '../presentation/screens/reports/reports_screen.dart';
-
 import '../presentation/screens/notifications/notifications_screen.dart';
-
 import '../presentation/screens/profile/profile_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
-
   routes: [
-    // =======================================================
+    // =========================================================
     // AUTH
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/login',
@@ -47,9 +45,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // =======================================================
+    // =========================================================
     // DASHBOARD
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/',
@@ -59,9 +57,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // =======================================================
+    // =========================================================
     // EXPENSES
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/expenses',
@@ -97,9 +95,9 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
 
-    // =======================================================
+    // =========================================================
     // INCOME
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/income',
@@ -135,9 +133,9 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
 
-    // =======================================================
+    // =========================================================
     // BUDGETS
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/budgets',
@@ -173,9 +171,9 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
 
-    // =======================================================
+    // =========================================================
     // REPORTS
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/reports',
@@ -185,9 +183,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // =======================================================
+    // =========================================================
     // NOTIFICATIONS
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/notifications',
@@ -197,9 +195,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    // =======================================================
+    // =========================================================
     // PROFILE
-    // =======================================================
+    // =========================================================
 
     GoRoute(
       path: '/profile',
@@ -209,4 +207,94 @@ final GoRouter appRouter = GoRouter(
       },
     ),
   ],
+
+  // =========================================================
+  // ROUTER ERROR
+  // =========================================================
+
+  errorBuilder: (context, state) {
+    return const _RouterErrorScreen();
+  },
 );
+
+class _RouterErrorScreen extends StatelessWidget {
+  const _RouterErrorScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('خطأ'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 420,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.red.withOpacity(0.10),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: const Icon(
+                    Icons.error_outline_rounded,
+                    size: 42,
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'الصفحة غير موجودة',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'تعذر العثور على الصفحة التي طلبتها.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.go('/');
+                    },
+                    icon: const Icon(
+                      Icons.home_rounded,
+                    ),
+                    label: const Text(
+                      'العودة للرئيسية',
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: const Text(
+                      'العودة للخلف',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

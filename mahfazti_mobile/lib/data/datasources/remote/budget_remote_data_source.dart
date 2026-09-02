@@ -11,6 +11,11 @@ class BudgetRemoteDataSource {
     required ApiClient apiClient,
   }) : _apiClient = apiClient;
 
+  // =========================================================
+  // GET ALL BUDGETS
+  // GET /api/budgets
+  // =========================================================
+
   Future<List<BudgetModel>> getBudgets({
     int? year,
     int? month,
@@ -27,32 +32,55 @@ class BudgetRemoteDataSource {
 
     final response = await _apiClient.get(
       ApiConstants.budgets,
-      queryParameters:
-          queryParameters.isEmpty ? null : queryParameters,
+      queryParameters: queryParameters.isEmpty ? null : queryParameters,
     );
 
-    final data = response.data as List<dynamic>;
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! List) {
+      return <BudgetModel>[];
+    }
 
     return data
         .map(
           (item) => BudgetModel.fromJson(
-            item as Map<String, dynamic>,
+            Map<String, dynamic>.from(item as Map),
           ),
         )
         .toList();
   }
 
-  Future<BudgetModel> getBudgetById(
-    int id,
-  ) async {
+  // =========================================================
+  // GET BUDGET BY ID
+  // GET /api/budgets/{id}
+  // =========================================================
+
+  Future<BudgetModel> getBudgetById(int id) async {
     final response = await _apiClient.get(
       '${ApiConstants.budgets}/$id',
     );
 
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الميزانية غير موجودة في استجابة الخادم.',
+      );
+    }
+
     return BudgetModel.fromJson(
-      response.data as Map<String, dynamic>,
+      Map<String, dynamic>.from(data),
     );
   }
+
+  // =========================================================
+  // CREATE BUDGET
+  // POST /api/budgets
+  // =========================================================
 
   Future<BudgetModel> createBudget(
     CreateBudgetRequestModel request,
@@ -62,14 +90,25 @@ class BudgetRemoteDataSource {
       data: request.toJson(),
     );
 
-    final responseData =
-        response.data as Map<String, dynamic>;
+    final responseData = response.data as Map<String, dynamic>;
 
-    final data =
-        responseData['data'] as Map<String, dynamic>;
+    final data = responseData['data'];
 
-    return BudgetModel.fromJson(data);
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الميزانية المضافة غير موجودة في الاستجابة.',
+      );
+    }
+
+    return BudgetModel.fromJson(
+      Map<String, dynamic>.from(data),
+    );
   }
+
+  // =========================================================
+  // UPDATE BUDGET
+  // PUT /api/budgets/{id}
+  // =========================================================
 
   Future<BudgetModel> updateBudget(
     int id,
@@ -80,14 +119,27 @@ class BudgetRemoteDataSource {
       data: request.toJson(),
     );
 
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الميزانية المعدلة غير موجودة في الاستجابة.',
+      );
+    }
+
     return BudgetModel.fromJson(
-      response.data as Map<String, dynamic>,
+      Map<String, dynamic>.from(data),
     );
   }
 
-  Future<void> deleteBudget(
-    int id,
-  ) async {
+  // =========================================================
+  // DELETE BUDGET
+  // DELETE /api/budgets/{id}
+  // =========================================================
+
+  Future<void> deleteBudget(int id) async {
     await _apiClient.delete(
       '${ApiConstants.budgets}/$id',
     );

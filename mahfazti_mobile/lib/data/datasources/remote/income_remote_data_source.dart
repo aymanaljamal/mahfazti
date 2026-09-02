@@ -11,6 +11,11 @@ class IncomeRemoteDataSource {
     required ApiClient apiClient,
   }) : _apiClient = apiClient;
 
+  // =========================================================
+  // GET ALL INCOMES
+  // GET /api/incomes
+  // =========================================================
+
   Future<List<IncomeModel>> getIncomes({
     DateTime? startDate,
     DateTime? endDate,
@@ -18,43 +23,64 @@ class IncomeRemoteDataSource {
     final queryParameters = <String, dynamic>{};
 
     if (startDate != null) {
-      queryParameters['startDate'] =
-          _formatDate(startDate);
+      queryParameters['startDate'] = _formatDate(startDate);
     }
 
     if (endDate != null) {
-      queryParameters['endDate'] =
-          _formatDate(endDate);
+      queryParameters['endDate'] = _formatDate(endDate);
     }
 
     final response = await _apiClient.get(
       ApiConstants.incomes,
-      queryParameters:
-          queryParameters.isEmpty ? null : queryParameters,
+      queryParameters: queryParameters.isEmpty ? null : queryParameters,
     );
 
-    final data = response.data as List<dynamic>;
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! List) {
+      return <IncomeModel>[];
+    }
 
     return data
         .map(
           (item) => IncomeModel.fromJson(
-            item as Map<String, dynamic>,
+            Map<String, dynamic>.from(item as Map),
           ),
         )
         .toList();
   }
 
-  Future<IncomeModel> getIncomeById(
-    int id,
-  ) async {
+  // =========================================================
+  // GET INCOME BY ID
+  // GET /api/incomes/{id}
+  // =========================================================
+
+  Future<IncomeModel> getIncomeById(int id) async {
     final response = await _apiClient.get(
       '${ApiConstants.incomes}/$id',
     );
 
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الدخل غير موجودة في استجابة الخادم.',
+      );
+    }
+
     return IncomeModel.fromJson(
-      response.data as Map<String, dynamic>,
+      Map<String, dynamic>.from(data),
     );
   }
+
+  // =========================================================
+  // CREATE INCOME
+  // POST /api/incomes
+  // =========================================================
 
   Future<IncomeModel> createIncome(
     CreateIncomeRequestModel request,
@@ -64,14 +90,25 @@ class IncomeRemoteDataSource {
       data: request.toJson(),
     );
 
-    final responseData =
-        response.data as Map<String, dynamic>;
+    final responseData = response.data as Map<String, dynamic>;
 
-    final data =
-        responseData['data'] as Map<String, dynamic>;
+    final data = responseData['data'];
 
-    return IncomeModel.fromJson(data);
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الدخل المضافة غير موجودة في الاستجابة.',
+      );
+    }
+
+    return IncomeModel.fromJson(
+      Map<String, dynamic>.from(data),
+    );
   }
+
+  // =========================================================
+  // UPDATE INCOME
+  // PUT /api/incomes/{id}
+  // =========================================================
 
   Future<IncomeModel> updateIncome(
     int id,
@@ -82,18 +119,35 @@ class IncomeRemoteDataSource {
       data: request.toJson(),
     );
 
+    final responseData = response.data as Map<String, dynamic>;
+
+    final data = responseData['data'];
+
+    if (data is! Map) {
+      throw Exception(
+        'بيانات الدخل المعدلة غير موجودة في الاستجابة.',
+      );
+    }
+
     return IncomeModel.fromJson(
-      response.data as Map<String, dynamic>,
+      Map<String, dynamic>.from(data),
     );
   }
 
-  Future<void> deleteIncome(
-    int id,
-  ) async {
+  // =========================================================
+  // DELETE INCOME
+  // DELETE /api/incomes/{id}
+  // =========================================================
+
+  Future<void> deleteIncome(int id) async {
     await _apiClient.delete(
       '${ApiConstants.incomes}/$id',
     );
   }
+
+  // =========================================================
+  // DATE FORMAT
+  // =========================================================
 
   String _formatDate(DateTime date) {
     final year = date.year.toString().padLeft(4, '0');

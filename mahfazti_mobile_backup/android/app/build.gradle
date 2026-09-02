@@ -1,0 +1,28 @@
+android {
+    namespace = "com.example.mahfazti_mobile"
+
+    compileSdk = 36
+
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        applicationId = "com.example.mahfazti_mobile"
+
+        minSdk = 23
+        targetSdk = 36
+
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
