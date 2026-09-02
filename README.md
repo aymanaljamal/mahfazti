@@ -1,8 +1,9 @@
+أكيد، هذا **ملف `
 # 💰 Mahfazti — محفظتي
 
-**Mahfazti (محفظتي)** is a personal finance management system designed to help users manage their income, expenses, budgets, categories, notifications, and financial reports through a modern mobile application connected to a secure REST API backend.
+**Mahfazti (محفظتي)** is a full-stack personal finance management system designed to help users manage their income, expenses, budgets, categories, notifications, and financial reports through a modern mobile application connected to a secure REST API backend.
 
-The project is divided into two main applications:
+The project consists of two main applications:
 
 ```text
 Mahfazti
@@ -14,7 +15,7 @@ Mahfazti
 
 ## 📌 Project Overview
 
-Mahfazti is a full-stack personal finance management solution.
+Mahfazti is a personal finance management solution that combines a Java Spring Boot backend with a Flutter mobile application.
 
 The system allows users to:
 
@@ -26,8 +27,9 @@ The system allows users to:
 * Create monthly budgets
 * Track financial activity
 * View daily, weekly, monthly, and yearly reports
-* Receive and manage financial notifications
-* Monitor remaining balance and spending behavior
+* Receive financial notifications
+* Monitor remaining balance
+* Analyze spending behavior
 
 The mobile application communicates with the backend through RESTful APIs secured using JWT authentication.
 
@@ -38,7 +40,18 @@ The mobile application communicates with the backend through RESTful APIs secure
 ```text
 mahfazti/
 │
-├── README.md
+├── .github/
+│
+├── image/
+│   ├── 01_login.jpg
+│   ├── 03_dashboard.jpg
+│   ├── 04_dashboard.jpg
+│   ├── 06_expenses.jpg
+│   ├── 07_add_expense.jpg
+│   ├── 08_budgets.jpg
+│   ├── 10_reports.jpg
+│   ├── 12_profile.jpg
+│   └── 1_notifications.jpg
 │
 ├── mahfazti/
 │   └── Backend
@@ -46,17 +59,30 @@ mahfazti/
 ├── mahfazti_mobile/
 │   └── Flutter Mobile Application
 │
-└── image/
-    └── Screenshot/
+├── README.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+└── LICENSE
 ```
 
 ---
 
 # 🔵 1. Mahfazti Backend
 
-The backend is responsible for business logic, authentication, database management, financial calculations, notifications, and REST API services.
+The backend is responsible for:
 
-## Technologies
+* Business logic
+* Authentication
+* Authorization
+* User management
+* Database operations
+* Financial calculations
+* Budget management
+* Notifications
+* Financial reports
+* REST API services
+
+## 🛠️ Technologies
 
 * Java
 * Spring Boot
@@ -66,33 +92,34 @@ The backend is responsible for business logic, authentication, database manageme
 * Hibernate
 * MySQL
 * MapStruct
-* Springdoc OpenAPI / Swagger
+* Springdoc OpenAPI
+* Swagger
 
-## Backend Responsibilities
+---
 
-The backend provides APIs for:
+# 🔐 Backend API
 
-### 🔐 Authentication
+## Authentication
 
 ```text
 POST /api/auth/login
 POST /api/auth/register
 ```
 
-### 👤 User
+## User
 
 ```text
 GET /api/users/me
 PUT /api/users/me
 ```
 
-### 🗂️ Categories
+## Categories
 
 ```text
 GET /api/categories
 ```
 
-### 💸 Expenses
+## Expenses
 
 ```text
 GET    /api/expenses
@@ -101,10 +128,10 @@ POST   /api/expenses
 PUT    /api/expenses/{id}
 DELETE /api/expenses/{id}
 
-GET /api/expenses/summary
+GET    /api/expenses/summary
 ```
 
-### 💰 Income
+## Income
 
 ```text
 GET    /api/incomes
@@ -114,7 +141,7 @@ PUT    /api/incomes/{id}
 DELETE /api/incomes/{id}
 ```
 
-### 📊 Budgets
+## Budgets
 
 ```text
 GET    /api/budgets
@@ -124,7 +151,7 @@ PUT    /api/budgets/{id}
 DELETE /api/budgets/{id}
 ```
 
-### 🔔 Notifications
+## Notifications
 
 ```text
 GET    /api/notifications
@@ -135,7 +162,7 @@ PUT    /api/notifications/read-all
 DELETE /api/notifications/{id}
 ```
 
-### 📈 Reports
+## Reports
 
 ```text
 GET /api/reports/daily
@@ -148,9 +175,9 @@ GET /api/reports/yearly
 
 # 🟢 2. Mahfazti Mobile
 
-The mobile application is built using Flutter and provides the user interface for interacting with the Mahfazti backend.
+The mobile application is built using Flutter and provides the main user interface for interacting with the Mahfazti backend.
 
-## Technologies
+## 📱 Technologies
 
 * Flutter
 * Dart
@@ -208,33 +235,44 @@ lib/
 └── main.dart
 ```
 
-### Architecture Layers
+---
 
-#### Presentation
+# 🧩 Architecture Layers
+
+## Presentation
+
+Responsible for:
 
 * Screens
 * Riverpod providers
 * Shared widgets
+* UI state
+* Navigation
 * Theme
-* UI state handling
 
-#### Domain
+## Domain
+
+Contains:
 
 * Entities
 * Enums
 * Repository contracts
 * Business abstractions
-* Use case layer foundation
+* Use case foundation
 
-#### Data
+## Data
 
-* Remote data sources
+Responsible for:
+
 * API models
 * Request models
+* Remote data sources
 * Repository implementations
-* Backend API communication
+* Backend communication
 
-#### Core
+## Core
+
+Contains:
 
 * API configuration
 * Dio networking
@@ -272,47 +310,45 @@ Mahfazti uses JWT-based authentication.
 └──────────────────────────┘
 ```
 
-After successful login or registration:
+After successful authentication:
 
-1. The backend returns a JWT access token.
-2. Flutter securely stores the token.
-3. The shared API client adds the token to authenticated requests.
+1. The backend returns an access token.
+2. Flutter stores the token securely.
+3. The API client automatically attaches the token.
 4. Logout removes the stored token locally.
 
-The backend currently does not expose a dedicated logout endpoint, so logout is handled locally by deleting the stored access token.
+The backend does not expose a dedicated logout endpoint, so logout is handled locally by deleting the stored access token.
 
 ---
 
-# 🔄 Communication Between Applications
-
-The two applications communicate through HTTP REST APIs.
+# 🔄 Application Communication
 
 ```text
-┌─────────────────────────┐
-│   Mahfazti Mobile       │
-│   Flutter / Dart        │
-└────────────┬────────────┘
-             │
-             │ HTTP / JSON
-             │ JWT
-             ▼
-┌─────────────────────────┐
-│   Mahfazti Backend      │
-│   Spring Boot / Java    │
-└────────────┬────────────┘
-             │
-             │ JPA / Hibernate
-             ▼
-┌─────────────────────────┐
-│         MySQL           │
-└─────────────────────────┘
+┌────────────────────────────┐
+│      Mahfazti Mobile       │
+│       Flutter / Dart       │
+└──────────────┬─────────────┘
+               │
+               │ HTTP / JSON
+               │ JWT
+               ▼
+┌────────────────────────────┐
+│      Mahfazti Backend      │
+│     Spring Boot / Java     │
+└──────────────┬─────────────┘
+               │
+               │ JPA / Hibernate
+               ▼
+┌────────────────────────────┐
+│            MySQL           │
+└────────────────────────────┘
 ```
 
 ---
 
 # 📱 Mobile Screens
 
-The mobile application currently includes the following routes:
+The current application includes:
 
 ```text
 /login
@@ -340,192 +376,99 @@ The mobile application currently includes the following routes:
 
 # 📸 Application Screenshots
 
-The following screenshots show the current Mahfazti mobile application interface.
+The following screenshots were captured from the Mahfazti mobile application running on an **Android Redmi Note 8**.
 
-All screenshots are stored under:
+All screenshots are stored in:
 
 ```text
-image/Screenshot/
+image/
 ```
 
 ---
 
 ## 🔐 Authentication
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/01_login.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٢-٣٣-٠٠٦_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Login</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٢٧-٢٧١_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Application Interface</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٢٧-٢٧١_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Authentication</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>Login Screen</b>
+</p>
 
 ---
 
-## 💰 Income
+## 🏠 Dashboard
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/03_dashboard.jpg" width="250">
+  <img src="image/04_dashboard.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٣٢-٧٤٥_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Income</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٣٢-٧٤٥_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Income Management</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٠-٢٤٩_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Income Details</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>Dashboard & Financial Overview</b>
+</p>
 
 ---
 
 ## 💸 Expenses
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/06_expenses.jpg" width="250">
+  <img src="image/07_add_expense.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٣٧-٦٢١_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Expenses</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٠-٢٤٩_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Expense Management</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٥-٦٩٣_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Transactions</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>Expenses & Add Expense</b>
+</p>
 
 ---
 
 ## 📊 Budgets
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/08_budgets.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٥-٦٩٣_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Budget Overview</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٨-٣١٠_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Budgets</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٤٨-٣١٠_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Budget Management</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>Budget Management</b>
+</p>
 
 ---
 
 ## 📈 Reports
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/10_reports.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٥١-٥٠٧_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Reports</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٣-٥٥-٩٠٧_com.example.mahfazti_mobile%281%29.jpg" width="230">
-
-<b>Financial Reports</b>
-
-</td>
-
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٤-٠٥-١٢٠_com.example.mahfazti_mobile.jpg" width="230">
-
-<b>Analytics</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>Financial Reports</b>
+</p>
 
 ---
 
-## 🔔 Notifications & Profile
+## 🔔 Notifications
 
-<table>
-<tr>
+<p align="center">
+  <img src="image/1_notifications.jpg" width="250">
+</p>
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٤-٠٥-١٢٠_com.example.mahfazti_mobile%281%29.jpg" width="230">
+<p align="center">
+  <b>Notifications</b>
+</p>
 
-<b>Notifications</b>
+---
 
-</td>
+## 👤 Profile
 
-<td align="center" valign="top">
-<img src="image/Screenshot/Screenshot_٢٠٢٦-٠٩-٠٢-١٩-٥٤-٠٧-١٥٧_com.example.mahfazti_mobile%281%29.jpg" width="230">
+<p align="center">
+  <img src="image/12_profile.jpg" width="250">
+</p>
 
-<b>Profile</b>
-
-</td>
-
-</tr>
-</table>
+<p align="center">
+  <b>User Profile</b>
+</p>
 
 ---
 
@@ -543,7 +486,7 @@ Users can:
 * Select payment methods
 * View expense summaries
 
-Supported payment methods:
+### Payment Methods
 
 ```text
 CASH
@@ -565,7 +508,7 @@ Users can:
 * Delete income
 * Filter income by date
 
-Supported income sources:
+### Income Sources
 
 ```text
 SALARY
@@ -663,16 +606,14 @@ Users can:
 
 # 🗂️ Categories
 
-Categories are used to organize financial activity.
-
-Categories can be associated with:
+Categories organize financial activity and are used by:
 
 * Expenses
 * Budgets
-* Spending reports
-* Financial summaries
+* Reports
+* Spending summaries
 
-The mobile application retrieves available categories from:
+The mobile application retrieves available categories through:
 
 ```text
 GET /api/categories
@@ -684,7 +625,7 @@ GET /api/categories
 
 The profile section allows users to:
 
-* View their current profile
+* View personal information
 * Update first name
 * Update last name
 * Update phone number
@@ -697,7 +638,7 @@ The profile section allows users to:
 
 # 🎨 User Interface
 
-The mobile application is designed primarily for Arabic-speaking users.
+The application is designed primarily for Arabic-speaking users.
 
 The UI follows:
 
@@ -714,7 +655,7 @@ The UI follows:
 * Consistent buttons
 * Consistent form fields
 * Consistent cards
-* Reusable UI components
+* Reusable components
 
 ---
 
@@ -722,7 +663,7 @@ The UI follows:
 
 ## Backend
 
-The backend runs by default on:
+Default backend address:
 
 ```text
 http://localhost:8080
@@ -730,7 +671,7 @@ http://localhost:8080
 
 ## Android Emulator
 
-When running Flutter on an Android Emulator:
+For Android Emulator:
 
 ```text
 http://10.0.2.2:8080
@@ -738,7 +679,7 @@ http://10.0.2.2:8080
 
 ## Flutter Web
 
-When running Flutter Web:
+For Flutter Web:
 
 ```text
 http://localhost:8080
@@ -760,21 +701,21 @@ Navigate to the backend project:
 cd mahfazti
 ```
 
-Start the Spring Boot application according to the backend Maven configuration.
+Start the Spring Boot application according to its Maven configuration.
 
-The backend should be available at:
+The API should be available at:
 
 ```text
 http://localhost:8080
 ```
 
-Swagger documentation becomes available when the backend is running.
+Swagger documentation is available when the backend is running.
 
 ---
 
 # 🚀 Running the Mobile Application
 
-Navigate to the Flutter project:
+Navigate to:
 
 ```powershell
 cd mahfazti_mobile
@@ -814,13 +755,13 @@ Before committing changes:
 flutter analyze
 ```
 
-Format the Flutter project:
+Format the project:
 
 ```powershell
 dart format lib
 ```
 
-Check available dependency updates:
+Check dependency updates:
 
 ```powershell
 flutter pub outdated
@@ -830,7 +771,7 @@ flutter pub outdated
 
 # 🌿 Git Workflow
 
-Recommended branch structure:
+Recommended branches:
 
 ```text
 main
@@ -860,15 +801,21 @@ docs/readme
 
 # 📂 Repository Organization
 
-The root repository contains both applications and shared project resources:
-
 ```text
 mahfazti/
 │
 ├── .github/
 │
 ├── image/
-│   └── Screenshot/
+│   ├── 01_login.jpg
+│   ├── 03_dashboard.jpg
+│   ├── 04_dashboard.jpg
+│   ├── 06_expenses.jpg
+│   ├── 07_add_expense.jpg
+│   ├── 08_budgets.jpg
+│   ├── 10_reports.jpg
+│   ├── 12_profile.jpg
+│   └── 1_notifications.jpg
 │
 ├── mahfazti/
 │   ├── src/
@@ -893,9 +840,9 @@ mahfazti/
 
 # 🔒 Security
 
-The project uses several security mechanisms.
+## Backend
 
-### Backend
+The backend uses:
 
 * Spring Security
 * JWT authentication
@@ -904,14 +851,16 @@ The project uses several security mechanisms.
 * Protected REST endpoints
 * User-specific data access
 
-### Mobile
+## Mobile
+
+The mobile application uses:
 
 * Secure JWT storage
 * Bearer authentication
 * Centralized API authentication
-* No JWT storage in regular shared preferences
+* Flutter Secure Storage
 
-Sensitive credentials and environment configuration should never be committed to Git.
+Sensitive credentials, secrets, and environment configuration should never be committed to Git.
 
 ---
 
@@ -919,7 +868,7 @@ Sensitive credentials and environment configuration should never be committed to
 
 ## API Client
 
-The Flutter application uses a centralized Dio client for:
+The Flutter application uses a centralized Dio API client for:
 
 * GET requests
 * POST requests
@@ -933,7 +882,7 @@ The Flutter application uses a centralized Dio client for:
 
 ## Error Handling
 
-The application includes centralized handling for:
+The application supports centralized handling of:
 
 ```text
 Network Errors
@@ -968,7 +917,7 @@ Reusable validators are provided for:
 
 # 📌 Development Status
 
-## ✅ Backend
+## 🔵 Backend
 
 ```text
 ✅ Authentication
@@ -988,7 +937,7 @@ Reusable validators are provided for:
 ✅ Swagger / OpenAPI
 ```
 
-## ✅ Mobile
+## 🟢 Mobile
 
 ```text
 ✅ Flutter Project Foundation
@@ -1037,19 +986,19 @@ Reusable validators are provided for:
 
 # 📦 Application Build
 
-For Android APK development:
+Build Android APK:
 
 ```powershell
 flutter build apk
 ```
 
-For a release APK:
+Build release APK:
 
 ```powershell
 flutter build apk --release
 ```
 
-For Flutter Web:
+Build Flutter Web:
 
 ```powershell
 flutter build web
@@ -1097,7 +1046,13 @@ A formal open-source license can be added in the future.
 
 **محفظتي — إدارة أموالك أصبحت أسهل.**
 
-```
+````
 
-**مهم:** عندك حاليًا بعض الصور مكررة باسم `(1)` وبعض أسماء الملفات طويلة جدًا. الأفضل نخليها لاحقًا مثل `01-login.jpg`, `02-dashboard.jpg`, `03-income.jpg`... حتى يكون الـ README أنظف على GitHub وأسهل في الصيانة.
-```
+ولرفع هذا الـ README بعد حفظه:
+
+```powershell
+git add README.md
+git commit -m "docs: update project README and screenshots"
+git push origin main
+````
+
